@@ -1,0 +1,28 @@
+[package]
+name = "utilities"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "true"
+
+[[bin]]
+name = "false"
+
+[[bin]]
+name = "cat"
+
+[[bin]]
+name = "echo"
+
+[[bin]]
+name = "sleep"
+
+[features]
+experimental = ["lib-linux/abort"]
+
+[dependencies]
+syscalls = { workspace = true }
+start-linux = { workspace = true }
+lib-linux = { workspace = true }
