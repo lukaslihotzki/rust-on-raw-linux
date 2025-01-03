@@ -18,15 +18,14 @@ fn panic_handler(_pi: &PanicInfo) -> ! {
 fn copy(fd: &OwnedFd, code: &mut u8) -> Result<(), Errno> {
     let mut buf = [MaybeUninit::<u8>::uninit(); 4096];
     loop {
-        let Ok(size) = fd.read_uninit(&mut buf) else {
+        let Ok(data) = fd.read_uninit(&mut buf) else {
             *code = 1;
             break;
         };
-        if size.len() == 0 {
+        if data.len() == 0 {
             break;
         }
-        let buf = size;
-        STDOUT.write_all(buf)?;
+        STDOUT.write_all(data)?;
     }
     Ok(())
 }
@@ -44,8 +43,8 @@ fn main(init: Args) -> ! {
                 exit(1);
             }
         }
-        slice => {
-            for path in slice {
+        args => {
+            for path in args {
                 let fd;
                 let mut it = path.bytes();
                 let fdref = if (it.next(), it.next())
