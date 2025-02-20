@@ -50,6 +50,10 @@ impl<'a> From<CStr<'a>> for &'a ffi::CStr {
 }
 
 impl Args {
+    pub fn get(&self) -> *mut usize {
+        self.0
+    }
+
     pub fn argc(&self) -> usize {
         unsafe { *self.0 }
     }
@@ -146,6 +150,15 @@ impl EnvAndAux {
             }
         }
         panic!()
+    }
+
+    pub fn entry(self) -> Option<usize> {
+        for (k, v) in self.auxv() {
+            if k.get() == 0x09 {
+                return Some(v);
+            }
+        }
+        None
     }
 }
 

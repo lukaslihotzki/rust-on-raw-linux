@@ -19,6 +19,9 @@ name = "echo"
 [[bin]]
 name = "sleep"
 
+[[bin]]
+name = "loader"
+
 [features]
 experimental = ["lib-linux/abort"]
 

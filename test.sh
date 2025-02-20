@@ -1,7 +1,7 @@
 #!/bin/sh -ev
-XPATH=target/$(rustc -vV | sed -n 's/-.*//;s/^host: //p')-unknown-none/release
+cd target/$(rustc -vV | sed -n 's/-.*//;s/^host: //p')-unknown-none/release
 run() {
-    "$XPATH/$@"
+    "./$@"
 }
 
 run true
