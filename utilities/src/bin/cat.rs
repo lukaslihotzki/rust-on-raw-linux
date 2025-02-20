@@ -9,9 +9,7 @@ use syscalls::Errno;
 
 #[panic_handler]
 fn panic_handler(_pi: &PanicInfo) -> ! {
-    loop {
-        lib_linux::exit(255);
-    }
+    lib_linux::exit(255);
 }
 
 #[inline(always)]
